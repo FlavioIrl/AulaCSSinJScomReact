@@ -1,16 +1,24 @@
+import { useState } from 'react'
+import { ThemeProvider } from 'styled-components'
 import Projetos from './containers/Projetos'
 import Sidebar from './containers/Sidebar'
 import Sobre from './containers/Sobre'
 import EstiloGlobal, { Container } from './styles'
+import temaDark from './themes/dark'
 import temaLight from './themes/light'
-import { ThemeProvider } from 'styled-components'
 
 function App() {
+  const [estaUsandoTemaDark, setEstaUsandoTemaDark] = useState(false)
+
+  function trocaTema() {
+    setEstaUsandoTemaDark(!estaUsandoTemaDark)
+  }
+
   return (
-    <ThemeProvider theme={temaLight}>
+    <ThemeProvider theme={estaUsandoTemaDark ? temaDark : temaLight}>
       <EstiloGlobal />
       <Container>
-        <Sidebar />
+        <Sidebar trocaTema={trocaTema} />
         <main>
           <Sobre />
           <Projetos />
